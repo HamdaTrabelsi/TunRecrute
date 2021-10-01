@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProfSkill index{% endblock %}
+
+{% block body %}
+    <h1>ProfSkill index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Percent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prof_skill in prof_skills %}
+            <tr>
+                <td>{{ prof_skill.id }}</td>
+                <td>{{ prof_skill.Name }}</td>
+                <td>{{ prof_skill.Percent }}</td>
+                <td>
+                    <a href="{{ path('prof_skill_show', {'id': prof_skill.id}) }}">show</a>
+                    <a href="{{ path('prof_skill_edit', {'id': prof_skill.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('prof_skill_new') }}">Create new</a>
+{% endblock %}

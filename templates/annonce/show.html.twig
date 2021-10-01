@@ -1,0 +1,122 @@
+{% extends 'baseAnnonce.html.twig' %}
+
+{% block title %}Annonce{% endblock %}
+
+{% block body %}
+<!-- Page header -->
+<header class="page-header bg-img size-lg" style="background-image: url({{ asset('assets/img/wallhaven-eovv3r.jpg')}});">
+    <div class="container">
+        <div class="header-detail">
+
+            <img class="logo" src="{{ asset('Uploads/User_Images/' ~ annonce.user.getPicture()) }}" alt="">
+            <div class="hgroup">
+                <h1>{{ annonce.title }}</h1>
+                <h3><a href="">Google</a></h3>
+            </div>
+            <time datetime="{{ annonce.posted ? annonce.posted|date('Y-m-d H:i:s') : '' }}">{{ time_diff(annonce.posted) }}</time>
+            <hr>
+            <p class="lead">{{ annonce.description }}</p>
+
+            <ul class="details cols-3">
+            <li>
+                <i class="fa fa-map-marker"></i>
+                <span>{{ annonce.adresseTravail }}</span>
+            </li>
+
+            <li>
+                <i class="fa fa-certificate"></i>
+                <span>{{ annonce.contrat }}</span>
+            </li>
+
+            <li>
+                <i class="fa fa-money"></i>
+                <span>{{ annonce.salaire }} Dt/ month</span>
+            </li>
+
+            <li>
+                <i class="fa fa-clock-o"></i>
+                <span>{{ annonce.heuresTravail }}h / week</span>
+            </li>
+
+            <li>
+                <i class="fa fa-flask"></i>
+                <span>{{ annonce.experience}} years experience</span>
+            </li>
+
+
+            <li>
+                <i class="fa fa-briefcase"></i>
+                <span>{{ annonce.diplome}}</span>
+            </li>
+            </ul>
+            {% if app.user %}
+            <div class="button-group">
+                {% if is_granted("ROLE_CANDIDAT") or is_granted("ROLE_EMPLOYER") %}
+                    <a class="btn btn-danger"  data-toggle="modal" data-target="#myModalNorm">report</a>
+                {% endif %}
+
+
+
+                {% if is_granted('ROLE_ADMIN') %}
+
+                        {{ include('annonce/_delete_form.html.twig') }}
+                {% endif %}
+                {% if is_granted('ROLE_CANDIDAT') %}
+                    {% if annonce.candidatures is empty %}
+
+            <a href="{{ path('candidature_new',{'UserId':app.user.id,'annonceId':annonce.id}) }}" class="btn btn-info" >Apply</a>
+                    {% else %}
+                        {% set test = false %}
+                        {% for candidature in annonce.candidatures %}
+                            {% if candidature.user.id == app.user.id %}
+                                {% set test = true %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if test == false %}
+                <a href="{{ path('candidature_new',{'UserId':app.user.id,'annonceId':annonce.id}) }}" class="btn btn-info" >Apply</a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Report this post
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    {#form here#}
+                    {{ form_start(form, {'action': path('annonce_show', { 'id': annonce.id })}) }}
+                    {#                    {{ form_widget(form.annonceId,{'attr': {'value' : annonce.user.id}}) }}#}
+                    {{ form_widget(form.description,{'attr': {'placeholder' : 'Description'}}) }}
+                    <hr class="hr-xs">
+
+                    <button type="submit" class="btn btn-danger btn-block">report</button>
+
+                    {{ form_end(form) }}
+
+                </div>
+
+                <!-- Modal Footer -->
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

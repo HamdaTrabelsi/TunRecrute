@@ -1,0 +1,117 @@
+{% extends 'profile/baseProfile.html.twig' %}
+{% form_theme profileForm 'form/my_theme.html.twig' %}
+{% block body %}
+<div class="alice-bg section-padding-bottom">
+    <div class="container no-gliters">
+        <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container">
+                    <div class="dashboard-content-wrapper">
+                        {{ form_start(profileForm,{"attr":{"class":"dashboard-form"}}) }}
+                            <div class="dashboard-section upload-profile-photo">
+                                <div class="update-photo">
+                                    <img class="image" src="{{ asset('Uploads/User_Images/' ~ app.user.picture) }}" alt="">
+                                </div>
+                                <div class="file-upload">
+                                    <span>Change Avatar</span>
+                                    {{form_widget(profileForm.pictureFile,{"attr":{"class":"file-input"}})}}
+                                </div>
+                            </div>
+                            <div class="dashboard-section basic-info-input">
+                                <h4><i data-feather="user-check"></i>Basic Info</h4>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">First Name</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.firstname,{"attr":{"type":"text","class":"form-control","placeholder":"First Name"}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Last Name</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.lastname,{"attr":{"type":"text","class":"form-control","placeholder":"Last Name"}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Email Address</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.email,{"attr":{"type":"email","class":"form-control","placeholder":"email@example.com"}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Phone</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.tel,{"attr":{"type":"tel","class":"form-control","placeholder":"12 345 678"}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Address</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.address,{"attr":{"type":"text","class":"form-control","placeholder":"Ariana"}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"></label>
+                                    <div class="col-sm-9">
+                                        <button type="submit" class="button">Save Change</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {{ form_end(profileForm) }}
+                        {{form_start(form,{"attr":{"class":"dashboard-form","id":"pwd-form"}})  }}
+                        <div class="dashboard-section basic-info-input">
+                            <h4><i data-feather="lock"></i>Change Password</h4>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">New Password</label>
+                                <div class="col-sm-9">
+                                    {{ form_row(form.password.first,{'attr':{'class':'form-control','placeholder':'New password'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Retype Password</label>
+                                <div class="col-sm-9">
+                                    {{ form_row(form.password.second,{'attr':{'class':'form-control','placeholder':'Retype password'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <button type="submit" class="button" form="pwd-form">Update Password</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+
+                    </div>
+                    <div class="dashboard-sidebar">
+                        <div class="user-info">
+                            <div class="thumb">
+                                <img src="{{ asset('Uploads/User_Images/' ~ app.user.picture) }}" class="img-fluid" alt="">
+                            </div>
+                            <div class="user-body">
+                                <h5>{{ app.user.firstname ~ ' ' ~ app.user.lastname }}</h5>
+                            </div>
+                        </div>
+                        <div class="dashboard-menu">
+                            <ul>
+                                <li class="active"><i class="fas fa-user"></i><a href="{{ path('edit_profile') }}">Edit Profile</a></li>
+                                <li><i class="fas fa-file-alt"></i><a href="{{ path('resume') }}">Resume</a></li>
+                                <li><i class="fas fa-edit"></i><a href="{{ path('resume_edit') }}">Edit Resume</a></li>
+                                <li><i class="fas fa-check-square"></i><a href="{{ path('applied_jobs') }}">Applied Job</a></li>
+                            </ul>
+                            <ul class="delete">
+                                <li><i class="fas fa-power-off"></i><a href="{{ path('app_logout') }}">Logout</a></li>
+                                <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Delete Profile</a></li>
+                            </ul>
+                            <!-- Modal -->
+                            <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                {{ render(path('deactivate',{'id':app.user.id})) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

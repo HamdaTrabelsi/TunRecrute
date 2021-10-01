@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WorkExp index{% endblock %}
+
+{% block body %}
+    <h1>WorkExp index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>CompanyName</th>
+                <th>StartYear</th>
+                <th>EndYear</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for work_exp in work_exps %}
+            <tr>
+                <td>{{ work_exp.id }}</td>
+                <td>{{ work_exp.Title }}</td>
+                <td>{{ work_exp.CompanyName }}</td>
+                <td>{{ work_exp.startYear }}</td>
+                <td>{{ work_exp.endYear }}</td>
+                <td>{{ work_exp.description }}</td>
+                <td>
+                    <a href="{{ path('work_exp_show', {'id': work_exp.id}) }}">show</a>
+                    <a href="{{ path('work_exp_edit', {'id': work_exp.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('work_exp_new') }}">Create new</a>
+{% endblock %}

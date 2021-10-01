@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Post a job position or create your online resume by TheJobs!">
+    <meta name="keywords" content="">
+
+    <title>Welcome</title>
+
+    <!-- Styles -->
+    <link href="  {{ asset('assets/css/app.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{asset('assets/img/speaker.ico')}}">
+</head>
+
+<body class="nav-on-header smart-nav">
+
+<!-- Navigation bar -->
+<nav class="navbar">
+    <div class="container">
+
+        <!-- Logo -->
+        <div class="pull-left">
+
+            <div class="logo-wrapper">
+                <a class="logo" href="{{ path("app_index") }}"><img src={{ asset("assets/img/speaker.png") }} alt="logo"></a>
+                <a class="logo-alt" href="{{ path("app_index") }}"><img src={{ asset("assets/img/speaker.png")}} alt="logo-alt"></a>
+            </div>
+
+        </div>
+        <!-- END Logo -->
+
+        <!-- User account -->
+        <div class="pull-right user-login">
+            <a class="btn btn-sm btn-primary" href="{{ path('app_login') }}">Login</a> or <a href="{{ path('Choose_Role') }}">register</a>
+        </div>
+        <!-- END User account -->
+
+        <!-- Navigation menu -->
+
+        <!-- END Navigation menu -->
+
+    </div>
+</nav>
+<!-- END Navigation bar -->
+
+
+<!-- Site header -->
+<header class="site-header size-lg text-center" style="background-image: url({{asset('assets/img/wallhaven-r7z7z1.jpg')}})">
+    <div class="container">
+        <div class="col-xs-12">
+            <br><br>
+            <h2>Welcome to<mark>TunRecrute</mark>!</h2>
+            <h5 class="font-alt">Start searching for a job opportunity right now</h5>
+            <br><br><br>
+            <form class="header-job-search"  action="{{ path('search_annonce') }}" method="post">
+                <div class="input-keyword">
+                    <input type="text" class="form-control" name="titre" placeholder="Job title, skills, or company">
+                </div>
+
+                <div class="input-location">
+                    <input type="text" class="form-control" name="address" placeholder="City or state">
+                </div>
+
+                <div class="btn-search">
+                    <button class="btn btn-primary" type="submit">Find jobs</button>
+{#                    <a href="job-list.html">Advanced Job Search</a>#}
+                </div>
+            </form>
+        </div>
+
+    </div>
+</header>
+<!-- END Site header -->
+
+
+<!-- Main container -->
+<main>
+
+    <!-- Recent jobs -->
+    <section>
+        <div class="container">
+            <header class="section-header">
+                <span>Latest</span>
+                <h2>Recent jobs</h2>
+            </header>
+
+            <div class="row item-blocks-connected">
+    {% for annonce in annonces %}
+        <!-- Job item -->
+        <div class="col-xs-12">
+            <a class="item-block" href="{{ path('annonce_show', {'id': annonce.id}) }}">
+                <header>
+                    <img src={{ asset('Uploads/User_Images/' ~ annonce.user.getPicture()) }} alt="">
+                    <div class="hgroup">
+                        <h4>{{ annonce.title }}</h4>
+                        <h5>{{ annonce.user.getCompname() }}</h5>
+                    </div>
+                    <div class="header-meta">
+                        <span class="location">{{ annonce.adresseTravail }}</span>
+                        <span class="label label-success">{{ annonce.contrat }}</span>
+                    </div>
+                </header>
+            </a>
+        </div>
+        <!-- END Job item -->
+    {% else %}
+        <div class="col-xs-12">
+            No jobs Yet !!!
+        </div>
+    {% endfor %}
+            </div>
+
+            <br><br>
+            <p class="text-center"><a class="btn btn-info" href="{{ path("annonce_index") }}">Browse all jobs</a></p>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Facts -->
+    <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: {{ asset('assets/img/bg-pattern.png') }}">
+        <div class="container">
+
+{#            <div class="row">#}
+{#                <div class="counter col-md-3 col-sm-6">#}
+{#                    <p><span data-from="0" data-to="6890"></span>+</p>#}
+{#                    <h6>Jobs</h6>#}
+{#                </div>#}
+
+                <div class="counter col-md-6 col-sm-6">
+                    <p><span data-from="0" data-to="{{ numA }}"></span>+</p>
+                    <h6>Jobs</h6>
+                </div>
+
+{#                <div class="counter col-md-3 col-sm-6">#}
+{#                    <p><span data-from="0" data-to="36800"></span>+</p>#}
+{#                    <h6>Resume</h6>#}
+{#                </div>#}
+
+                <div class="counter col-md-6 col-sm-6">
+                    <p><span data-from="0" data-to="{{ numU }}"></span>+</p>
+                    <h6>Users</h6>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- END Facts -->
+
+
+
+
+
+</main>
+<!-- END Main container -->
+
+
+<!-- Site footer -->
+<footer class="site-footer">
+
+
+
+    <!-- Bottom section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <ul class="social-icons">
+                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END Bottom section -->
+
+</footer>
+<!-- END Site footer -->
+
+
+<!-- Back to top button -->
+<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+<!-- END Back to top button -->
+
+<!-- Scripts -->
+<script src="{{ asset('assets/js/app.min.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'basejob.html.twig' %}
+
+{% block title %}New Annonce{% endblock %}
+
+{% block body %}
+<!-- Page header -->
+<header class="page-header">
+    <div class="container page-name">
+        <h1 class="text-center">Add a new job</h1>
+        <p class="lead text-center">Create a new vacancy for your company and put it online.</p>
+    </div>
+    <div class="container">
+
+    {{ include('annonce/_form.html.twig') }}
+
+    <a href="{{ path('annonce_index') }}">back to list</a>
+    </div>
+</header>
+{% endblock %}

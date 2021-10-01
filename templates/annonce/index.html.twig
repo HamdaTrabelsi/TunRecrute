@@ -1,0 +1,233 @@
+{% extends 'baseAnnonce.html.twig' %}
+
+{% block title %}Annonce index{% endblock %}
+
+{% block body %}
+<!-- Page header -->
+<header class="page-header bg-img" style="background-image: url({{ asset('assets/img/wallhaven-eovv3r.jpg')}});">
+
+
+    <!--result login-->
+    <div class="container page-name">
+        <h1 class="text-center">Browse jobs</h1>
+        <p class="lead text-center">Use following search box to find jobs that fit you better</p>
+    </div>
+
+    <div class="container">
+
+
+        <form action="{{ path('search_annonce') }}" method="post">
+
+            <div class="row">
+
+                <div class="form-group col-xs-12 col-sm-4">
+                    <input type="text" name="titre" class="form-control" placeholder="Titre">
+                </div>
+                <div class="form-group col-xs-12 col-sm-4">
+                    <input type="text" name="address" class="form-control" placeholder="Location">
+                </div>
+                <div class="form-group col-xs-12 col-sm-4">
+                    <select name="domaine" class="form-control selectpicker">
+                        <option value="">Any</option>
+                        <option>Banking & Finance</option>
+                        <option>Education</option>
+                        <option>Consulting</option>
+                        <option>Marketing & Advertising</option>
+                        <option>Technology</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-xs-12 col-sm-4">
+                    <h6>Contract</h6>
+                    <div class="radio">
+                        <input type="radio" name="contract" id="Any" value="" checked>
+                        <label for="Any">Any</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="contract" id="CDI" value="CDI">
+                        <label for="CDI">CDI</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="contract" id="CDD" value="CDD">
+                        <label for="CDD">CDD</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="contract" id="Full-Time" value="Full-Time">
+                        <label for="Full-Time">Full-Time</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="contract" id="Independent/Freelance" value="Independent/Freelance">
+                        <label for="Independent/Freelance">Independent/Freelance</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="contract" id="Internship" value="Internship">
+                        <label for="Internship">Internship</label>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-xs-12 col-sm-4">
+                    <h6>Diploma</h6>
+                    <div class="radio">
+                        <input type="radio" name="diploma" id="AnyD" value="" checked>
+                        <label for="AnyD">Any</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="diploma" id="No Diploma" value="No Diploma">
+                        <label for="No Diploma">No Diploma</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="diploma" id="Bachelor" value="Bachelor">
+                        <label for="Bachelor">Bachelor</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="diploma" id="Ph.D." value="Ph.D.">
+                        <label for="Ph.D.">Ph.D.</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="diploma" id="Master" value="Master">
+                        <label for="Master">Master</label>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group col-xs-12 col-sm-4">
+                    <h6>Experience</h6>
+
+                    <div class="radio">
+                        <input type="radio" name="experience" id="AnyE" value="" checked>
+                        <label for="AnyE">Any</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="experience" id="none" value="None">
+                        <label for="none">No Experience</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="experience" id="1-2" value="1-2">
+                        <label for="1-2">1-2</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="experience" id="3-4" value="3-4">
+                        <label for="3-4">3-4</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="experience" id="5-6" value="5-6">
+                        <label for="5-6">5-6</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="experience" id="7-8" value="7-8">
+                        <label for="7-8">7-8</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" name="experience" id="9+" value="9+">
+                        <label for="9+">9+</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="button-group">
+                <div class="action-buttons">
+                    <button class="btn btn-primary" name="submit_search">Apply filter</button>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+
+</header>
+
+<main>
+    <section class="no-padding-top bg-alt">
+        <div class="container">
+            <div class="row">
+{#    <h1>Annonce index</h1>#}
+{% if searched is defined and searched == true and etat == true %}
+                <div class="col-xs-12">
+                    <br>
+                    <h5>There are <strong>{{ annonces.count }}</strong> results that match your search</h5>
+                </div>
+{% endif %}
+        {% for annonce in annonces %}
+                <div class="col-xs-12">
+                    <a class="item-block" href="{{ path('annonce_show', {'id': annonce.id}) }}">
+                        <header>
+                            <img src="{{ asset('Uploads/User_Images/' ~ annonce.user.getPicture()) }}">
+                            <div class="hgroup">
+                                <h4>{{ annonce.title }}</h4>
+                                <h5>{{ annonce.user.getCompname() }}
+                                    <span class="label label-success">{{ annonce.contrat }}</span>
+                                    {% if annonce.domaine == "Banking and Finance" %}
+                                    <span class="label label-default">{{ annonce.domaine }}</span>
+                                    {% elseif annonce.domaine == "Education" %}
+                                        <span class="label label-success">{{ annonce.domaine }}</span>
+                                    {% elseif annonce.domaine == "Consulting" %}
+                                        <span class="label label-primary">{{ annonce.domaine }}</span>
+                                    {% elseif annonce.domaine == "Marketing and Advertising" %}
+                                        <span class="label label-warning">{{ annonce.domaine }}</span>
+                                    {% elseif annonce.domaine == "Technology" %}
+                                        <span class="label label-info">{{ annonce.domaine }}</span>
+                                    {% endif %}
+                                        </h5>
+                            </div>
+                            <time datetime="{{ annonce.posted ? annonce.posted|date('Y-m-d H:i:s') : '' }}">{{ time_diff(annonce.posted) }}</time>
+                        </header>
+
+                        <div class="item-body">
+                            <p>{{ annonce.description }}</p>
+                        </div>
+
+                        <footer>
+                            <ul class="details cols-3">
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                <span>{{ annonce.adresseTravail }}</span>
+                            </li>
+
+                            <li>
+                                <i class="fa fa-money"></i>
+                                <span>{{ annonce.salaire }} / year</span>
+                            </li>
+
+                            <li>
+                                <i class="fa fa-certificate"></i>
+                                <span>{{ annonce.experience }} / years of experience</span>
+                            </li>
+                            </ul>
+                        </footer>
+                    </a>
+                </div>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+                <div class="navigation" style="margin: 20px auto; width: 500px;">
+                    {{  knp_pagination_render(annonces) }}
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+    <div id="ack"></div>
+
+
+{% endblock %}

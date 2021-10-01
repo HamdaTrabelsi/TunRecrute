@@ -1,0 +1,222 @@
+
+
+<style>
+    body{
+        background-color:#25373D !important;
+
+    }
+    #wrapy{
+        position:fixed;
+        z-index:-1;
+        top:0;
+        left:0;
+        background-color:black
+
+    }
+    #wrapy img.bgfade{
+        position:absolute;
+        top:0;
+        display:none;
+        width:100%;
+        height:100%;
+        z-index:-1
+    }
+    .box {
+
+        height: 100%;
+
+    }
+    .loginBtn:focus {
+        outline: none;
+    }
+    .loginBtn:active {
+        box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+    }
+
+    .loginBtn a:hover {
+        color : white;
+    }
+    .loginBtn a {
+        color : white;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Job search Website">
+    <meta name="keywords" content="">
+
+    <title>JobFound</title>
+
+    <!-- Styles -->
+    <link href="{{ asset('assets/jobs/css/app.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/jobs/css/thejobs.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/jobs/css/noty.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/jobs/js/jquery1_8_2.js') }}"></script>
+    <script src="{{asset('assets/jobs/js/noty.js')}}"></script>
+    <script src="{{asset('assets/jobs/js/myscript.js')}}"></script>
+
+    <!--JQUERT -->
+
+    <script>
+        //change image every 3 seconds
+        $(window).load(function(){
+
+            $('img.bgfade').hide();
+            var dg_H = $(window).height();
+            var dg_W = $(window).width();
+            $('#wrapy').css({'height':"1200px",'width':"1900px"});
+
+            function anim() {
+                $("#wrapy img.bgfade").first().appendTo('#wrapy').fadeOut(1500);
+                $("#wrapy img").first().fadeIn(1500);
+                setTimeout(anim, 3000);
+            }
+            anim();
+        })
+        $(window).resize(function(){window.location.href=window.location.href})
+    </script>
+
+    <!--<link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'> -->
+
+
+{#    Favicons#}
+    <link rel="icon" href="{{ asset("assets/img/speaker.ico") }}">
+</head>
+
+<body class="nav-on-header smart-nav">
+
+
+<div id="wrapy">
+    <img class="bgfade" src="{{ asset('assets/img/1.jpg') }}">
+    <img class="bgfade" src="{{ asset('assets/img/wallhaven-eovv3r.jpg') }}">
+    <img class="bgfade" src="{{ asset('assets/img/wallhaven-q66kx5.jpg') }}">
+
+</div>
+<!-- Navigation bar -->
+<nav class="navbar">
+    <div class="container">
+
+        <!-- Logo -->
+        <div class="pull-left">
+            <a class="navbar-toggle" href="#" data-toggle="offcanvas"></a>
+
+            <div class="logo-wrapper">
+                <a class="logo" href="{{ path('app_index') }}"><img src="{{ asset('assets/img/speaker.png') }}" alt="logo"></a>
+                <a class="logo-alt" href="{{ path('app_index') }}"><img src="{{ asset('assets/img/speaker.png') }}" alt="logo-alt"></a>
+            </div>
+
+        </div>
+        <!-- END Logo -->
+
+        <!-- User account -->
+        <div class="pull-right user-login">
+            <a class="btn btn-sm btn-primary" href="{{ path('Choose_Role') }}">Register Now</a>
+        </div>
+        <!-- END User account -->
+
+    </div>
+</nav>
+<!-- END Navigation bar -->
+
+<!-- Site headerrrrrrrrrrrrrrrrrrrr -->
+<header class="site-header size-lg text-center box" >
+    <div class="container">
+        <div class="col-xs-12">
+
+            <img src="{{asset('assets/img/tunrecrute.png')}}" class="image-responsive" width="408px">
+
+
+<form method="post" id="myForm" class="header-job-search" autocomplete="off">
+    {% for message in app.flashes('error') %}
+        <script>
+    new Noty({
+            theme: 'metroui',
+            timeout: 1500,
+            killer: true,
+            type: 'error',
+            layout: 'topCenter',
+            text: 'Login/Password incorrect'
+        }).show();
+</script>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <script>
+            new Noty({
+                theme: 'metroui',
+                timeout: 1500,
+                killer: true,
+                type: 'warning',
+                layout: 'topCenter',
+                text: 'Your Account is Disabled'
+            }).show();
+        </script>
+        {#        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+    {% endfor %}
+
+
+    {% if app.user %}
+        <div class="mb-3">
+            <script>
+                new Noty({
+                    theme: 'metroui',
+                    timeout: 1500,
+                    killer: true,
+                    type: 'success',
+                    layout: 'topCenter',
+                    text: 'Login Successful'
+                }).show();
+            </script>
+           You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+{#    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>#}
+{#    <label for="inputEmail">Email</label>#}
+    <div class="input-keyword">
+    <input type="email" value="{{ last_username }}" placeholder="Adresse email" name="email" class="form-control" required autofocus>
+    </div>
+{#    <label for="inputPassword">Password</label>#}
+    <div class="input-location">
+    <input type="password" name="password" placeholder="mot de passe" id="inputPassword" class="form-control" required>
+    </div>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+    <div class="btn-search">
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+    </div>
+</form>
+
+
+            <!--result login-->
+            <div id="ack"></div>
+
+        </div>
+
+    </div>
+</header>
+<!-- END Site header -->
+
+</body>
+</html>

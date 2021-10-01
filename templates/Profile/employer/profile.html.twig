@@ -1,0 +1,120 @@
+{% extends 'profile/baseProfile.html.twig' %}
+{% block body %}
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+                <div class="col">
+                    <div class="dashboard-container">
+                        <div class="dashboard-content-wrapper">
+                            <div class="dashboard-section dashboard-recent-activity">
+                                <h4 class="title">Recent Activity</h4>
+                                <div class="activity-list">
+                                    <i class="fas fa-bolt"></i>
+                                    <div class="content">
+                                        <h5>Your Resume Updated!</h5>
+                                        <span class="time">5 hours ago</span>
+                                    </div>
+                                    <div class="close-activity">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                                <div class="activity-list">
+                                    <i class="fas fa-arrow-circle-down"></i>
+                                    <div class="content">
+                                        <h5>Someone downloaded your resume.</h5>
+                                        <span class="time">11 hours ago</span>
+                                    </div>
+                                    <div class="close-activity">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                                <div class="activity-list">
+                                    <i class="fas fa-check-square"></i>
+                                    <div class="content">
+                                        <h5>You applied for Project Manager @homeland</h5>
+                                        <span class="time">11 hours ago</span>
+                                    </div>
+                                    <div class="close-activity">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                                <div class="activity-list">
+                                    <i class="fas fa-check-square"></i>
+                                    <div class="content">
+                                        <h5>You applied for Project Manager @homeland</h5>
+                                        <span class="time">5 hours ago</span>
+                                    </div>
+                                    <div class="close-activity">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                                <div class="activity-list">
+                                    <i class="fas fa-user"></i>
+                                    <div class="content">
+                                        <h5>You changed password successfuly</h5>
+                                        <span class="time">2 days ago</span>
+                                    </div>
+                                    <div class="close-activity">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                                <div class="activity-list">
+                                    <i class="fas fa-heart"></i>
+                                    <div class="content">
+                                        <h5>Someone bookmarked you</h5>
+                                        <span class="time">3 days ago</span>
+                                    </div>
+                                    <div class="close-activity">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-sidebar">
+                            <div class="company-info">
+                                <div class="thumb">
+                                    <img src="{{ asset('Uploads/User_Images/'~app.user.picture) }}" class="img-fluid" alt="">
+                                </div>
+                                <div class="company-body">
+                                    <h5>{{ app.user.compname }}</h5>
+                                    <span>@username</span>
+                                </div>
+                            </div>
+                            <div class="profile-progress">
+                                <div class="progress-item">
+                                    <div class="progress-head">
+                                        <p class="progress-on">Profile</p>
+                                    </div>
+                                    <div class="progress-body">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
+                                        </div>
+                                        <p class="progress-to">70%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-menu">
+                                <ul>
+                                    <li class="active"><i class="fas fa-home"></i><a href="{{ path('profile') }}">Dashboard</a></li>
+                                    <li><i class="fas fa-user"></i><a href="{{ path('edit_profile') }}">Edit Profile</a></li>
+                                    <li><i class="fas fa-briefcase"></i><a href="employer-dashboard-manage-job.html">Manage Jobs</a></li>
+                                    <li><i class="fas fa-users"></i><a href="employer-dashboard-manage-candidate.html">Manage Candidates</a></li>
+                                    <li><i class="fas fa-plus-square"></i><a href="employer-dashboard-post-job.html">Post New Job</a></li>
+                                </ul>
+                                </ul>
+                                <ul class="delete">
+                                    <li><i class="fas fa-power-off"></i><a href="{{ path('app_logout') }}">Logout</a></li>
+                                    <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Deactivate Profile</a></li>
+                                </ul>
+                                <!-- Modal -->
+                                <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                    {{ render(controller('App\\Controller\\ProfileController::deactivate',{'id':app.user.id})) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

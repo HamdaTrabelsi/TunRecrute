@@ -1,0 +1,145 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="title">
+                <h4><i data-feather="git-branch"></i>Social Networks</h4>
+            </div>
+            <div class="content">
+                {{form_start(form,{'attr':{'id':'newSocialMediaForm'},'action':path('social_media_new')}) }}
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Social Links</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-facebook-f"></i></div>
+                            </div>
+                            {{ form_widget(form.facebook,{'attr':{'class':'form-control','placeholder':'facebook.com/username'}}) }}
+                            {{ form_errors(form.facebook) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-twitter"></i></div>
+                            </div>
+                            {{ form_widget(form.twitter,{'attr':{'class':'form-control','placeholder':'twitter.com/username'}}) }}
+                            {{ form_errors(form.twitter) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-google-plus"></i></div>
+                            </div>
+                            {{ form_widget(form.google,{'attr':{'class':'form-control','placeholder':'google.com/username'}}) }}
+                            {{ form_errors(form.google) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-linkedin-in"></i></div>
+                            </div>
+                            {{ form_widget(form.linkedin,{'attr':{'class':'form-control','placeholder':'linkedin.com/username'}}) }}
+                            {{ form_errors(form.linkedin) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-pinterest-p"></i></div>
+                            </div>
+                            {{ form_widget(form.pintrest,{'attr':{'class':'form-control','placeholder':'pintrest.com/username'}}) }}
+                            {{ form_errors(form.pintrest) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-instagram"></i></div>
+                            </div>
+                            {{ form_widget(form.instagram,{'attr':{'class':'form-control','placeholder':'instagram.com/username'}}) }}
+                            {{ form_errors(form.instagram) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-behance"></i></div>
+                            </div>
+                            {{ form_widget(form.behance,{'attr':{'class':'form-control','placeholder':'behance.com/username'}}) }}
+                            {{ form_errors(form.behance) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-dribbble"></i></div>
+                            </div>
+                            {{ form_widget(form.dribbble,{'attr':{'class':'form-control','placeholder':'dribbble.com/username'}}) }}
+                            {{ form_errors(form.dribbble) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-github"></i></div>
+                            </div>
+                            {{ form_widget(form.github,{'attr':{'class':'form-control','placeholder':'github.com/username'}}) }}
+                            {{ form_errors(form.github) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="buttons">
+                            <button type="submit" class="primary-bg">Save Update</button>
+                            <button class="" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                {{form_end(form)}}
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on("submit","#newSocialMediaForm",function(event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        $form = $('#newSocialMediaForm');
+        $.ajax({
+            url: $form.attr('action'),
+            type: "POST",
+            data: $form.serialize(),
+            success: function (data) {
+                if(data ==='success') {
+                    window.location.reload();
+                }else{
+                    $('#modal-social').html(data);
+                    feather.replace();
+                }
+            },
+            error: function (res){
+                console.log('error');
+            }
+        });
+        return false;
+    });
+</script>

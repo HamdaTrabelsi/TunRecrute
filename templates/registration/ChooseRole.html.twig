@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/LoginTemplate/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/LoginTemplate/logintemp/iofrm-style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/LoginTemplate/logintemp/iofrm-theme5.css') }}">
+    <script src="{{ asset('assets/LoginTemplate/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/LoginTemplate/css/koukicons.min.css') }}">
+    <link rel="icon" href="{{asset('assets/img/speaker.ico')}}">
+
+    <style>
+        /*Swal fix*/
+
+        html.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown),
+        body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
+            height: 100% !important;
+        }
+
+        body {
+            background-color: #1D59F2;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="form-body">
+
+    <div class="row">
+        <div class="img-holder">
+            <div class="bg"></div>
+            <div class="info-holder">
+
+            </div>
+        </div>
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items">
+                    <h3 class="title">Créer un Compte :</h3>
+                    <p>Selectionner le type du compte</p>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h1><i class="kk kk-users"></i></h1>
+                                    <h5 class="card-title">Candidat</h5>
+                                    <a href="{{ path('app_register') }}" class="btn btn-primary btn-block">Inscription</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h1><i class="kk kk-camera-bag"></i> </h1>
+                                    <h5 class="card-title">Employeur</h5>
+                                    <a href="{{ path('employer_reg') }}" class="btn btn-success btn-block">Inscription</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ asset('assets/LoginTemplate/js/scriptLogin.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SocialMedia{% endblock %}
+
+{% block body %}
+    <h1>SocialMedia</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ social_media.id }}</td>
+            </tr>
+            <tr>
+                <th>Facebook</th>
+                <td>{{ social_media.facebook }}</td>
+            </tr>
+            <tr>
+                <th>Twitter</th>
+                <td>{{ social_media.twitter }}</td>
+            </tr>
+            <tr>
+                <th>Google</th>
+                <td>{{ social_media.google }}</td>
+            </tr>
+            <tr>
+                <th>Linkedin</th>
+                <td>{{ social_media.linkedin }}</td>
+            </tr>
+            <tr>
+                <th>Pintrest</th>
+                <td>{{ social_media.pintrest }}</td>
+            </tr>
+            <tr>
+                <th>Instagram</th>
+                <td>{{ social_media.instagram }}</td>
+            </tr>
+            <tr>
+                <th>Behance</th>
+                <td>{{ social_media.behance }}</td>
+            </tr>
+            <tr>
+                <th>Dribbble</th>
+                <td>{{ social_media.dribbble }}</td>
+            </tr>
+            <tr>
+                <th>Github</th>
+                <td>{{ social_media.github }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('social_media_index') }}">back to list</a>
+
+    <a href="{{ path('social_media_edit', {'id': social_media.id}) }}">edit</a>
+
+    {{ include('social_media/_delete_form.html.twig') }}
+{% endblock %}

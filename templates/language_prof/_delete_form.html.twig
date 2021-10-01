@@ -1,0 +1,18 @@
+<div class="modal-dialog" role="document" style="max-width: 400px;height: 100vh">
+    <div class="modal-content">
+        <div class="modal-body" style="padding: 30px">
+            <h4 style="font-size: 1.5rem;margin-bottom: 15px;text-transform: uppercase;"><i data-feather="trash-2">
+                </i>Delete Item
+            </h4>
+            <p style="margin-bottom: 15px;">Are you sure! You want to delete this item. This can't be undone!</p>
+            <form method= "post" action="{{ path('language_prof_delete', {'id': language_prof.id}) }}">
+                <div class="buttons">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ language_prof.id) }}">
+                    <button class="delete-button" style="background: #ff3366;color: #ffffff;">Delete</button>
+                    <button class="" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

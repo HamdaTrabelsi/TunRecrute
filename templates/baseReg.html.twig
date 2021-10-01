@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <link rel="icon" href="{{asset('assets/img/speaker.ico')}}">
+
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link href="{{asset('assets/jobs/css/app.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/jobs/css/thejobs.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/jobs/css/custom.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/jobs/css/noty.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/LoginTemplate/css/koukicons.min.css') }}">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+    <!--JQUERT -->
+    <script src="{{asset('assets/jobs/js/jquery1_8_2.js')}}"></script>
+
+
+
+</head>
+<body class="nav-on-header smart-nav">
+<!-- Navigation bar -->
+<nav class="navbar">
+    <div class="container">
+
+        <!-- Logo -->
+        <div class="pull-left">
+            <a class="navbar-toggle" href="index.php" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+            <div class="logo-wrapper">
+                <a class="logo" href="index.php"><img src="{{ asset("assets/img/speaker.png") }}" alt="logo"></a>
+                <a class="logo-alt" href="index.php"><img src="{{ asset("assets/img/speaker.png") }}" alt="logo-alt"></a>
+            </div>
+
+        </div>
+        <!-- END Logo -->
+
+        <!-- User account -->
+        <div class="pull-right user-login">
+            <a class="btn btn-sm btn-primary" href="{{ path("app_login") }}"><i class="kk kk-Key"></i>&nbsp;Login</a>
+        </div>
+        <!-- END User account -->
+
+
+
+    </div>
+</nav>
+
+
+<!-- Site header -->
+<header class="site-header size-lg text-center" style="background-image: url({{ asset('assets/img/wallhaven-eovv3r.jpg') }})">
+    <div class="container">
+        <div class="col-xs-12">
+            <main>
+
+                <div class="login-block">
+
+{% block body %}{% endblock %}
+                    <div id="ack"></div>
+
+                </div>
+
+            </main>
+
+
+
+
+
+            <!-- Scripts -->
+<script src="{{asset('assets/jobs/js/noty.js')}}"></script>
+<script src="{{asset('assets/jobs/js/myscript.js')}}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

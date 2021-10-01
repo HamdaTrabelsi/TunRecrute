@@ -1,0 +1,105 @@
+{% extends 'Profile/baseProfile.html.twig' %}
+
+{% block body %}
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+                <div class="col">
+                    <div class="dashboard-container">
+                        <div class="dashboard-content-wrapper">
+                            <div class="manage-candidate-container">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Candidate</th>
+                                        <th>Job applied to</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th class="action">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if candidatures is empty %}
+                                    </tbody>
+                                </table>
+                                <div style="margin-left:295px;margin-top:70px;font-size: 1.4rem;font-family: 'Poppins', sans-serif; font-weight: 500; color: #6f7484;">
+                                    No Application(s) Managed
+                                </div>
+                                {% else %}
+                                    {% for candidature in candidatures %}
+                                            <tr class="candidates-list">
+                                                <td class="title" style="margin-right: -70px;">
+                                                    <div class="thumb">
+                                                        <img src="{{  asset('Uploads/User_Images/' ~ candidature.user.picture) }}" class="img-fluid" alt="">
+                                                    </div>
+                                                    <div class="body">
+                                                        <h5><a href="{{ path('resume',{'id':candidature.user.id}) }}" style="padding-top: 8px;" target="_blank">{{ candidature.user.firstName }} {{ candidature.user.lastName }}</a></h5>
+                                                    </div>
+                                                </td>
+                                                <td class="status">
+                                                    <h5 style="color: #232630"><a href="{{path('annonce_show',{'id':candidature.annonce.id})}}" target="_blank">{{ candidature.annonce.title }}</a></h5>
+                                                </td>
+                                                <td class="status">
+                                                    {% if candidature.status == 'rejected' %}
+                                                        <i data-feather="x-circle" style="color: #ff3366;"></i><span style="color: #ff3366;">Rejected</span>
+                                                    {% elseif candidature.status == 'shortlisted' %}
+                                                        <i data-feather="check-circle" style="color: #01d13d;"></i><span style="color: #01d13d;">Shortlisted</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="status">
+                                                    {{ candidature.date|date('d/m/Y') }}
+                                                </td>
+                                                <td class="action">
+                                                    {% if candidature.status == 'rejected' %}
+                                                        <a href="{{ path('status',{'AnnonceId':candidature.annonce.id,'UserId':candidature.user.id,'s':'shortlisted'}) }}" class="download"><i data-feather="check-circle"></i></a>
+                                                    {% elseif candidature.status == 'shortlisted' %}
+                                                        <a href="{{ path('status',{'AnnonceId':candidature.annonce.id,'UserId':candidature.user.id,'s':'rejected'}) }}" class="remove"><i data-feather="x-circle"></i></a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                </tbody>
+                                </table>
+                                <div class="pagination-list text-center">
+                                    <nav class="navigation pagination">
+                                        <div class="nav-links">
+                                            {{  knp_pagination_render(candidatures) }}
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-sidebar">
+                            <div class="company-info">
+                                <div class="thumb">
+                                    <img src="{{ asset('Uploads/User_Images/'~ app.user.picture) }}" class="img-fluid" alt="">
+                                </div>
+                                <div class="company-body">
+                                    <h5>{{ app.user.compname }}</h5>
+                                </div>
+                            </div>
+                            <div class="dashboard-menu">
+                                <ul>
+                                    <li><i class="fas fa-user"></i><a href="{{ path('edit_profile') }}">Edit Profile</a></li>
+                                    <li><i class="fas fa-briefcase"></i><a href="{{ path('mes_annonces') }}">Manage Jobs</a></li>
+                                    <li><i class="fas fa-users"></i><a href="{{ path('candidature_index') }}">Manage Candidates</a></li>
+                                    <li class="active"><i class="fas fa-calendar-check"></i><a href="{{ path('managed_applications') }}">Managed Applications</a></li>
+                                    <li><i class="fas fa-plus-square"></i><a href="{{ path('annonce_new') }}">Post New Job</a></li>
+                                </ul>
+                                <ul class="delete">
+                                    <li><i class="fas fa-power-off"></i><a href="{{ path('app_logout') }}">Logout</a></li>
+                                    <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Deactivate Profile</a></li>
+                                </ul>
+                                <!-- Modal -->
+                                <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                    {{ render(controller('App\\Controller\\ProfileController::deactivate',{'id':app.user.id})) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

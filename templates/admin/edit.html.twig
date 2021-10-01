@@ -1,0 +1,184 @@
+{% extends 'BaseAdmin.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card  bg-light no-card-border">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="m-r-10">
+                                </div>
+                                <div>
+                                    <h3 class="m-b-0">Admin Settings</h3>
+                                    <span>Here you can edit your profile's information and add other admins</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <!-- basic table -->
+            <div class="row">
+                {% for message in app.flashes('success') %}
+                    <script>
+                        new Noty({
+                            theme: 'metroui',
+                            timeout: 1500,
+                            killer: true,
+                            type: 'success',
+                            layout: 'topCenter',
+                            text: '{{ message }}'
+                        }).show();
+                    </script>
+                {% endfor %}
+                <div class="col-lg-12">
+                    <div class="card">
+                        {{ form_start(addform, {'action': path('admin_edit')}) }}
+                        <div class="card-header bg-info">
+                            <h4 class="m-b-0 text-white">Add an Admin</h4>
+                        </div>
+                        <hr>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_widget(addform.email,{'attr': {'placeholder' : 'Email'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_widget(addform.address,{'attr': {'placeholder' : 'Address'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_widget(addform.firstname,{'attr': {'placeholder' : 'Firstname'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_widget(addform.lastname,{'attr': {'placeholder' : 'Address'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_widget(addform.plainPassword.first,{'attr': { 'placeholder' : 'Password'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_widget(addform.plainPassword.second,{'attr': { 'placeholder' : 'Retype password'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> {{ button_label|default('Add Admin') }}</button>
+
+
+                            {{ form_end(addform) }}
+                        </div>
+
+
+                    </div>
+<hr>
+                    <div class="card">
+                        {{ form_start(form) }}
+                        <div class="card-header bg-info">
+                            <h4 class="m-b-0 text-white">Edit My Profile</h4>
+                        </div>
+                        <hr>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                        {{ form_widget(form.email,{'attr': {'class' : 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                        {{ form_widget(form.address,{'attr': {'class' : 'form-control'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                        {{ form_widget(form.firstname) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                        {{ form_widget(form.lastname) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                            {{ form_widget(form.plainPassword.first,{'attr': {'class' : 'form-control', 'placeholder' : 'Password'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                            {{ form_widget(form.plainPassword.second,{'attr': {'class' : 'form-control', 'placeholder' : 'Retype password'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> {{ button_label|default('Update') }}</button>
+
+
+                        {{ form_end(form) }}
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <div id="ack"></div>
+
+    <!--This page JavaScript -->
+{% endblock %}

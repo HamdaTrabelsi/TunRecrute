@@ -1,0 +1,159 @@
+{% extends 'profile/baseProfile.html.twig' %}
+{% block body %}
+<div class="alice-bg section-padding-bottom">
+    <div class="container no-gliters">
+        <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container">
+                    <div class="dashboard-content-wrapper">
+                        {% if app.user.cvFilename or  app.user.coverLetterFilename%}
+                        <div class="download-resume dashboard-section">
+                            {% if app.user.cvFilename %}
+                            <a href="{{ path('downloadCV') }}">Download CV<i data-feather="download"></i></a>
+                            {% endif %}
+                            {% if app.user.coverLetterFilename %}
+                            <a href="{{ path('downloadCL') }}">Download Cover Letter<i data-feather="download"></i></a>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        {% if not app.user.profSkills is empty  or not app.user.socialMedia is empty%}
+                        <div class="skill-and-profile dashboard-section">
+                            {% if not app.user.profskills is empty %}
+                            <div class="skill">
+                                <label>Skills:</label>
+                                {% for skill in app.user.profskills %}
+                                    <a href="#">{{ skill.name }}</a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if not app.user.socialMedia is empty %}
+                            <div class="social-profile">
+                                <label>Social Media:</label>
+                                {% if app.user.socialMedia.facebook %}
+                                <a href="{{ app.user.socialMedia.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                {% endif %}
+                                {% if app.user.socialMedia.twitter %}
+                                <a href="{{ app.user.socialMedia.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                {% endif %}
+                                {% if app.user.socialMedia.google %}
+                                <a href="{{ app.user.socialMedia.google }}" target="_blank"><i class="fab fa-google-plus"></i></a>
+                                {% endif %}
+                                {% if app.user.socialMedia.linkedin %}
+                                <a href="{{ app.user.socialMedia.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                {% endif %}
+                                {% if app.user.socialMedia.pintrest %}
+                                <a href="{{ app.user.socialMedia.pintrest }}" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+                                {% endif %}
+                                {% if app.user.socialMedia.behance %}
+                                <a href="{{ app.user.socialMedia.behance }}" target="_blank"><i class="fab fa-behance"></i></a>
+                                {% endif %}
+                                {% if app.user.socialMedia.dribbble %}
+                                <a href="{{ app.user.socialMedia.dribbble }}" target="_blank"><i class="fab fa-dribbble"></i></a>
+                                {% endif %}
+                                {% if app.user.socialMedia.github %}
+                                <a href="{{ app.user.socialMedia.github }}" target="_blank"><i class="fab fa-github"></i></a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        <div class="personal-information dashboard-section last-child details-section">
+                            <h4><i data-feather="user-plus"></i>Personal Details</h4>
+                            <ul>
+                                <li><span>Full Name:</span>{{ app.user.firstname }} {{ app.user.lastname }}</li>
+                                <li><span>Email:</span>{{ app.user.email }}</li>
+                                {% if app.user.birthdate %}
+                                <li><span>Date of Birth:</span> {{ app.user.birthdate }}</li>
+                                {% endif %}
+                                {% if app.user.nationality %}
+                                <li><span>Nationality:</span> {{ app.user.nationality }} </li>
+                                {% endif %}
+                                {% if app.user.sex %}
+                                <li><span>Sex:</span> {{ app.user.sex }}</li>
+                                {% endif %}
+                                <li><span>Address:</span>{{ app.user.address }}</li>
+                            </ul>
+                        </div>
+                        <div class="about-details details-section dashboard-section">
+                            <h4><i data-feather="align-left"></i>About Me</h4>
+                            <p>{{ app.user.aboutme }}</p>
+                        </div>
+                        <div class="edication-background details-section dashboard-section">
+                            <h4><i data-feather="book"></i>Education Background</h4>
+                            {% for edu in app.user.education %}
+                            <div class="education-label">
+                                <span class="study-year">{{ edu.startYear }} - {{ edu.endYear }}</span>
+                                <h5>{{ edu.DiplomaTitle }}<span>@ {{ edu.InstitutionName }}</span></h5>
+                                <p>{{ edu.Description }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="experience dashboard-section details-section">
+                            <h4><i data-feather="briefcase"></i>Work Experiance</h4>
+                            {% for work in app.user.workExps %}
+                            <div class="experience-section">
+                                <span class="service-year">{{ work.startYear }} - {{ work.endYear }}</span>
+                                <h5>{{ work.Title }}<span>{{ '@ '~ work.companyName }}</span></h5>
+                                <p>{{ work.Description }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="professonal-skill dashboard-section details-section">
+                            <h4><i data-feather="feather"></i>Professional Skill</h4>
+                            <div class="progress-group">
+                                {% for skill in app.user.profSkills %}
+                                    <div class="progress-item">
+                                        <div class="progress-head">
+                                            <p class="progress-on">{{ skill.Name }}</p>
+                                        </div>
+                                        <div class="progress-body">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.percent }}" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
+                                            </div>
+                                            <p class="progress-to">{{skill.Percent~'%'}}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="experience dashboard-section details-section">
+                            <h4><i data-feather="globe"></i>Languages</h4>
+                            {% for lang in app.user.languageProfs %}
+                                <div class="experience-section lang">
+                                    <h5>{{ lang.LanguageName }}<span style="margin-left: 0px;">{{ ' - '~ lang.ProfeciencyLvl }}</span></h5>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="dashboard-sidebar">
+                        <div class="user-info">
+                            <div class="thumb">
+                                <img src="{{ asset('Uploads/User_Images/' ~ app.user.picture) }}" class="img-fluid" alt="">
+                            </div>
+                            <div class="user-body">
+                                <h5>{{ app.user.firstname ~ ' ' ~ app.user.lastname }}</h5>
+                            </div>
+                        </div>
+                        <div class="dashboard-menu">
+                            <ul>
+                                <li><i class="fas fa-user"></i><a href="{{ path('edit_profile') }}">Edit Profile</a></li>
+                                <li class="active"><i class="fas fa-file-alt"></i><a href="{{ path('resume') }}">Resume</a></li>
+                                <li><i class="fas fa-edit"></i><a href="{{ path('resume_edit') }}">Edit Resume</a></li>
+                                <li><i class="fas fa-check-square"></i><a href="{{ path('applied_jobs') }}">Applied Job</a></li>
+                            </ul>
+                            <ul class="delete">
+                                <li><i class="fas fa-power-off"></i><a href="{{ path('app_logout') }}">Logout</a></li>
+                                <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Delete Profile</a></li>
+                            </ul>
+                            <!-- Modal -->
+                            <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                {{ render(controller('App\\Controller\\ProfileController::deactivate',{'id':app.user.id})) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <!-- Styles -->
+        <link href="{{ asset('assets/jobs/css/app.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/jobs/css/thejobs.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/jobs/css/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/jobs/css/noty.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet">
+        <link rel="icon" href="{{asset('assets/img/speaker.ico')}}">
+
+    {% endblock %}
+
+
+    <!-- Scripts -->
+    {% block script %}
+        <script src="{{ asset('assets/jobs/js/jquery1_8_2.js') }}"></script>
+        <script src="{{ asset('assets/jobs/js/app.min.js') }}"></script>
+        <script src="{{ asset('assets/jobs/js/thejobs.js') }}"></script>
+        <script src="{{ asset('assets/jobs/js/custom.js') }}"></script>
+        <script src="{{ asset('assets/jobs/js/noty.js') }}"></script>
+        <script src="{{ asset('assets/vendors/summernote/summernote.min.js') }}"></script>
+    {% endblock %}
+{#<style>#}
+{#    textarea {#}
+{#        resize: none;#}
+{#    }#}
+{#</style>#}
+</head>
+<body class="nav-on-header smart-nav bg-alt">
+<!-- Navigation bar -->
+<nav class="navbar">
+    <div class="container">
+
+        <!-- Logo -->
+        <div class="pull-left">
+            <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+            <div class="logo-wrapper">
+                <a class="logo" href="{{ asset('assets/img/speaker.png') }}"><img src="{{ asset('assets/img/speaker.png') }}" alt="logo"></a>
+                <a class="logo-alt" href="{{ path('annonce_index') }}"><img src="{{ asset('assets/img/speaker.png') }}" alt="logo-alt"></a>
+            </div>
+
+        </div>
+        <!-- END Logo -->
+
+        <!-- User account -->
+        {% if app.user %}
+            <div class="pull-right">
+
+                <div class="dropdown user-account">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                        <img src="{{ asset('Uploads/User_Images/' ~ app.user.picture) }}" alt="avatar">
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="{{ path("edit_profile") }}">Edit Profile</a></li>
+                        <li><a href="{{ path("app_logout") }}">Logout</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        {% endif %}
+        <!-- END User account -->
+
+        <!-- Navigation menu -->
+        <ul class="nav-menu">
+
+
+            <a href="{{ path("annonce_index") }}">Browse jobs</a>
+            {% if app.user and is_granted("ROLE_EMPLOYER") %}
+                <a href="{{ path("mes_annonces") }}">My jobs</a>
+                <a href="{{ path("annonce_new") }}">Post a job</a>
+            {% elseif app.user and is_granted("ROLE_CANDIDAT") %}
+                <a href="{{ path("applied_jobs") }}">My Applications</a>
+            {% endif %}
+        </ul>
+        <!-- END Navigation menu -->
+
+    </div>
+</nav>
+<!-- END Navigation bar -->
+
+{% block body %}{% endblock %}
+{% block javascripts %}
+    {% for message in app.flashes('success') %}
+        <script>
+            new Noty({
+                theme: 'metroui',
+                timeout: 1500,
+                killer: true,
+                type: 'success',
+                layout: 'topCenter',
+                text: '{{ message }}'
+            }).show();
+        </script>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>

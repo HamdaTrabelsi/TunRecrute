@@ -1,0 +1,94 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="title">
+                <h4><i data-feather="user-plus"></i>Personal Details</h4>
+            </div>
+            <div class="content">
+                {{ form_start(form,{'attr':{'id':'persoDetailsForm'},'action':path('details')})}}
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">First Name</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.firstname,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.firstname) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Last Name</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.lastname,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.lastname) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.email,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Date Of Birth</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.birthdate,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.birthdate) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Nationality</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.nationality,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.nationality) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Gender</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.sex,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.sex) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Address</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.address,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.address) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-sm-3 col-sm-9">
+                            <div class="buttons">
+                                <button class="primary-bg" type="submit">Save Update</button>
+                                <button class="" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                {{form_end(form)}}
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on("submit","#persoDetailsForm",function(event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        $form = $('#persoDetailsForm');
+        $.ajax({
+            url: $form.attr("action"),
+            type: "POST",
+            data: $form.serialize(),
+            success: function (data) {
+                if(data ==="success") {
+                    window.location.reload();
+                }else{
+                    $("#modal-personal-details").html(data);
+                    feather.replace();
+                }
+            },
+            error: function (res){
+                console.log("error");
+            }
+        });
+        return false;
+    });
+</script>

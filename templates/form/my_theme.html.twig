@@ -1,0 +1,18 @@
+{% use "bootstrap_base_layout.html.twig" %}
+
+{% block file_widget -%}
+
+    {%- set type = type|default('file') -%}
+    {{- block('form_widget_simple') -}}
+{% endblock %}
+
+{% block form_widget_simple -%}
+    {% if type is not defined or type != 'hidden' %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ (type|default('') == 'file' ? ' custom-file-input' : ' form-control'))|trim}) -%}
+    {% endif %}
+    {%- if type is defined and (type == 'range' or type == 'color') %}
+        {# Attribute "required" is not supported #}
+        {%- set required = false -%}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock form_widget_simple %}

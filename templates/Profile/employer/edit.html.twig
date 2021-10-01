@@ -1,0 +1,167 @@
+{% extends 'profile/baseProfile.html.twig' %}
+{% form_theme profileForm 'form/my_theme.html.twig' %}
+
+{% block body  %}
+<div class="alice-bg section-padding-bottom">
+    <div class="container no-gliters">
+        <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container">
+                    <div class="dashboard-content-wrapper">
+                        {{form_start(profileForm,{'attr':{'class':'dashboard-form'}}) }}
+                            <div class="dashboard-section upload-profile-photo">
+                                <div class="update-photo">
+                                    <img class="image" src="{{ asset('Uploads/User_Images/' ~ app.user.picture) }}" alt="">
+                                </div>
+                                <div class="file-upload">
+                                    <span>Change Avatar</span>
+                                    {{ form_widget(profileForm.pictureFile,{ 'attr':{'class':'file-input'} } ) }}
+                                </div>
+                            </div>
+                            <div class="dashboard-section basic-info-input">
+                                <h4><i data-feather="user-check"></i>Basic Info</h4>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Company Name</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.compname,{ 'attr':{'class':'form-control','placeholder':'Company Name'} } ) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Email Address</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.email,{ 'attr':{'class':'form-control','placeholder':'email@example.com'} } ) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Phone</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.tel,{ 'attr':{'class':'form-control','placeholder':'12 345 678'} } ) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Address</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.address,{ 'attr':{'class':'form-control','placeholder':'Ariana'} } ) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">About Us</label>
+                                    <div class="col-sm-9">
+                                        {{ form_widget(profileForm.aboutme,{ 'attr':{'class':'form-control'} } ) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-section media-inputs">
+                                <h4><i data-feather="image"></i>Video</h4>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Intro Video</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Link</div>
+                                            </div>
+                                            {{ form_widget(profileForm.socialMedia.youtube,{ 'attr':{'placeholder':'https://www.youtube.com/watch?v=ZRkdyjJ_489M'} } ) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-section social-inputs">
+                                <h4><i data-feather="cast"></i>Social Networks</h4>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Social Links</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text"><i class="fab fa-facebook-f"></i></div>
+                                            </div>
+                                            {{ form_widget(profileForm.socialMedia.facebook,{'attr':{'placeholder':'facebook.com/username'}}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-sm-3 col-sm-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text"><i class="fab fa-twitter"></i></div>
+                                            </div>
+                                            {{ form_widget(profileForm.socialMedia.twitter,{'attr':{'placeholder':'twitter.com/username'}}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-sm-3 col-sm-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text"><i class="fab fa-linkedin-in"></i></div>
+                                            </div>
+                                            {{ form_widget(profileForm.socialMedia.linkedin,{'attr':{'placeholder':'linkedin.com/username'}}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"></label>
+                                    <div class="col-sm-9">
+                                        <button type="submit" class="button">Update Profile</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% do profileForm.socialMedia.setRendered %}
+                        {{form_end(profileForm)}}
+                        {{ form_start(form,{'attr':{'class':'dashboard-form','id':'pwd-form'}}) }}
+                        <div class="dashboard-section basic-info-input">
+                            <h4><i data-feather="lock"></i>Change Password</h4>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">New Password</label>
+                                <div class="col-sm-9">
+                                    {{ form_row(form.password.first,{'attr':{'class':'form-control','placeholder':'New password'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Retype Password</label>
+                                <div class="col-sm-9">
+                                    {{ form_row(form.password.second,{'attr':{'class':'form-control','placeholder':'Retype password'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <button class="button">Update Password</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                    <div class="dashboard-sidebar">
+                        <div class="company-info">
+                            <div class="thumb">
+                                <img src="{{ asset('Uploads/User_Images/' ~ app.user.picture) }}" class="img-fluid" alt="">
+                            </div>
+                            <div class="company-body">
+                                <h5>{{ app.user.compname }}</h5>
+                            </div>
+                        </div>
+                        <div class="dashboard-menu">
+                            <ul>
+                                <li class="active"><i class="fas fa-user"></i><a href="{{ path('edit_profile') }}">Edit Profile</a></li>
+                                <li><i class="fas fa-briefcase"></i><a href="{{ path('mes_annonces') }}">Manage Jobs</a></li>
+                                <li><i class="fas fa-users"></i><a href="{{ path('candidature_index') }}">Manage Candidates</a></li>
+                                <li><i class="fas fa-calendar-check"></i><a href="{{ path('managed_applications') }}">Managed Applications</a></li>
+                                <li><i class="fas fa-plus-square"></i><a href="{{ path('annonce_new') }}">Post New Job</a></li>
+                            </ul>
+                            <ul class="delete">
+                                <li><i class="fas fa-power-off"></i><a href="{{ path('app_logout') }}">Logout</a></li>
+                                <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Deactivate Profile</a></li>
+                            </ul>
+                            <!-- Modal -->
+                            <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                {{ render(controller('App\\Controller\\ProfileController::deactivate',{'id':app.user.id})) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

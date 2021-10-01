@@ -1,0 +1,106 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="title">
+                <h4><i data-feather="briefcase"></i>Experience</h4>
+            </div>
+            <div class="content">
+                {{form_start(form,{'attr':{'id':'newWorkForm'},'action':path('work_exp_new')})}}
+                <div class="input-block-wrap">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" style="margin-right: 0; padding-top: 10px; padding-bottom: 0; color: #6f7484;font-size: 1.4rem; font-family: 'Poppins', sans-serif; font-weight: 600">
+                                Details of Experience
+                            </label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Title</div>
+                                    </div>
+                                    {{ form_widget( form.Title,{'attr':{'class':'form-control'}} ) }}
+                                    {{ form_errors(form.Title) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Company</div>
+                                    </div>
+                                    {{ form_widget( form.CompanyName,{'attr':{'class':'form-control'}} ) }}
+                                    {{ form_errors(form.CompanyName) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Start Year</div>
+                                    </div>
+                                    {{ form_widget( form.startYear,{'attr':{'class':'form-control'}} ) }}
+                                    {{ form_errors(form.startYear) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-9 offset-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">End Year</div>
+                                    </div>
+                                    {{ form_widget( form.endYear,{'attr':{'class':'form-control'}} ) }}
+                                    {{ form_errors(form.endYear) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-sm-3 col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Description</div>
+                                    </div>
+                                    {{ form_widget( form.description,{'attr':{'class':'form-control'}} ) }}
+                                    {{ form_errors(form.description) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-sm-3 col-sm-9">
+                            <div class="buttons">
+                                <button class="primary-bg">Add</button>
+                                <button class="" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on("submit","#newWorkForm",function(event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        $form = $("#newWorkForm");
+        $.ajax({
+            url: $form.attr('action'),
+            type: "POST",
+            data: $form.serialize(),
+            success: function (data) {
+                if(data ==='success') {
+                    window.location.reload();
+                }else{
+                    $('#modal-experience').html(data);
+                    feather.replace();
+                }
+            },
+            error: function (res){
+                console.log('error');
+            }
+        });
+        return false;
+    });
+</script>
+

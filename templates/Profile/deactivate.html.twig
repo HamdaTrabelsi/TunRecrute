@@ -1,0 +1,14 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <h4><i data-feather="trash-2"></i>Deactivate Account</h4>
+            <p>You are going to deactivate your profile. You can always reactivate it by logging back in.</p>
+            {{ form_start(form,{'action':path('deactivate',{'id':app.user.id})})}}
+                <div class="buttons">
+                    <button class="delete-button" type="submit">Deactivate</button>
+                    <button class="" data-dismiss="modal">Cancel</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

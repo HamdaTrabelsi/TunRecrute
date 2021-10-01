@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LanguageProf index{% endblock %}
+
+{% block body %}
+    <h1>LanguageProf index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>LanguageName</th>
+                <th>ProfeciencyLvl</th>
+                <th>Percent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for language_prof in language_profs %}
+            <tr>
+                <td>{{ language_prof.id }}</td>
+                <td>{{ language_prof.LanguageName }}</td>
+                <td>{{ language_prof.ProfeciencyLvl }}</td>
+                <td>{{ language_prof.percent }}</td>
+                <td>
+                    <a href="{{ path('language_prof_show', {'id': language_prof.id}) }}">show</a>
+                    <a href="{{ path('language_prof_edit', {'id': language_prof.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('language_prof_new') }}">Create new</a>
+{% endblock %}

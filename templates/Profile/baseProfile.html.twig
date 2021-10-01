@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Profile{% endblock %}</title>
+    {% block stylesheets %}
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/bootstrap.min.css') }}">
+
+        <!-- External Css -->
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/fontawesome-all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/themify-icons.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/et-line.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/bootstrap-select.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/plyr.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/flag.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/slick.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/owl.carousel.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/profile/css/jquery.nstSlider.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/jobs/css/noty.css') }}" >
+
+        <!-- Custom Css -->
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/profile/css/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/profile/css/dashboard.css') }}">
+        <script src="{{ asset('assets/profile/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/feather.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/bootstrap-select.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/jquery.nstSlider.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/visible.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/jquery.countTo.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/chart.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/plyr.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/tinymce.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/slick.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/jquery.ajaxchimp.min.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/custom.js') }}"></script>
+        <script src="{{ asset('assets/profile/js/dashboard.js')}}"></script>
+        <script src="{{ asset('assets/profile/js/datePicker.js')}}"></script>
+        <script src="{{ asset('assets/profile/js/upload-input.js')}}"></script>
+        <script src="{{ asset('assets/jobs/js/noty.js') }}"></script>
+
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600%7CRoboto:300i,400,500" rel="stylesheet">
+
+        <!-- Favicon -->
+        <link rel="icon" href="{{asset('assets/img/speaker.ico')}}">
+
+    {% endblock %}
+</head>
+<body>
+<header class="header-2">
+    <div class="container" style="margin-top: -9px;">
+        <div class="row">
+            <div class="col">
+                <div class="header-top">
+                    <div class="logo-area" style="height: 78px;padding-top: 15px;">
+                        <a class="logo" href="{{ path('annonce_index') }}"><img src="{{ asset('assets/img/speaker.png') }}" alt="logo"></a>
+                    </div>
+                    <div class="header-top-toggler">
+                        <div class="header-top-toggler-button"></div>
+                    </div>
+                    <div class="top-nav">
+                        {% if is_granted('ROLE_EMPLOYER') %}
+                        <div class="dropdown header-top-account">
+                            <a href="{{ path('annonce_index') }}#" class="account-button"style="font-weight: 500;font-size: 14px;letter-spacing: 1px;line-height: 60px;padding-left: 7px;padding-top: 10px;">
+                                Browse Jobs</a>
+                        </div>
+                        <div class="dropdown header-top-account">
+                            <a href="{{ path('mes_annonces') }}" class="account-button"style="font-weight: 500;font-size: 14px;letter-spacing: 1px;line-height: 60px;padding-left: 7px;padding-top: 10px;">
+                                My Jobs</a>
+                        </div>
+                        <div class="dropdown header-top-account" style="margin-bottom: 0;padding: 0px;">
+                            <a href="{{ path('annonce_new')}}" class="account-button"style="font-weight: 500;font-size: 14px;letter-spacing: 1px;line-height: 60px;padding-right: 320px;padding-left: 7px;padding-top: 10px;">
+                                Post a Job</a>
+                        </div>
+                        {% endif %}
+                        {% if app.user and is_granted('ROLE_CANDIDAT') %}
+                        <div class="dropdown header-top-account">
+                            <a href="{{path('annonce_index')}}" class="account-button"style="font-weight: 500;font-size: 14px;letter-spacing: 1px;line-height: 60px;padding-left: 7px;padding-top: 10px;">
+                                Browse Jobs</a>
+                        </div>
+                        <div class="dropdown header-top-account" style="margin-bottom: 0;padding: 0px;">
+                            <a href="{{path('applied_jobs')}}" class="account-button"style="font-weight: 500;font-size: 14px;letter-spacing: 1px;line-height: 60px;padding-right: 400px;padding-left: 7px;padding-top: 10px;">
+                                My Applications</a>
+                        </div>
+                        {% endif %}
+                        <a class href="#"  style="padding-top: 11px">
+                            <img src="{{ asset('Uploads/User_Images/' ~ app.user.picture) }}" alt="avatar" style="width: 50px;height: 50px;border-radius: 100%;">
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</header>
+{% for message in app.flashes('success') %}
+        <script>
+            new Noty({
+                theme: 'metroui',
+                timeout: 1500,
+                killer: true,
+                type: 'success',
+                layout: 'topCenter',
+                text: '{{ message }}'
+            }).show();
+        </script>
+{% endfor %}
+{% block body %}{% endblock %}
+{% block javascripts %}
+
+{#<script>#}
+{#    $(".primary-bg").click(function (e){#}
+{#        if(!$('#test-form').isValid()){#}
+{#            e.preventDefault()#}
+{#        }#}
+{#    })#}
+{#</script>#}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SocialMedia index{% endblock %}
+
+{% block body %}
+    <h1>SocialMedia index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Facebook</th>
+                <th>Twitter</th>
+                <th>Google</th>
+                <th>Linkedin</th>
+                <th>Pintrest</th>
+                <th>Instagram</th>
+                <th>Behance</th>
+                <th>Dribbble</th>
+                <th>Github</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for social_media in social_media %}
+            <tr>
+                <td>{{ social_media.id }}</td>
+                <td>{{ social_media.facebook }}</td>
+                <td>{{ social_media.twitter }}</td>
+                <td>{{ social_media.google }}</td>
+                <td>{{ social_media.linkedin }}</td>
+                <td>{{ social_media.pintrest }}</td>
+                <td>{{ social_media.instagram }}</td>
+                <td>{{ social_media.behance }}</td>
+                <td>{{ social_media.dribbble }}</td>
+                <td>{{ social_media.github }}</td>
+                <td>
+                    <a href="{{ path('social_media_show', {'id': social_media.id}) }}">show</a>
+                    <a href="{{ path('social_media_edit', {'id': social_media.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('social_media_new') }}">Create new</a>
+{% endblock %}

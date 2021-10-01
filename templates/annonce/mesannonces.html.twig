@@ -1,0 +1,89 @@
+{% extends 'profile/baseProfile.html.twig' %}
+
+{% block body %}
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+                <div class="col">
+                    <div class="dashboard-container">
+                        <div class="dashboard-content-wrapper">
+                            <div class="manage-job-container">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Job Title</th>
+                                        <th>Applications</th>
+                                        <th class="action">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for annonce in annonces %}
+                                    <tr class="job-items">
+                                        <td class="title">
+                                            <h5><a href="#">{{ annonce.title }}</a></h5>
+                                            <div class="info">
+                                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{ annonce.AdresseTravail }}</a></span>
+                                                <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{ annonce.heuresTravail }}h / week</a></span>
+                                                <span class="job-type part-time"><a href="#"><i data-feather="file"></i>{{ annonce.contrat }}</a></span>
+                                            </div>
+                                        </td>
+                                        <td class="application"><a href="{{ path('candidature_par_annonce',{'annonce_id':annonce.id,'user_id':app.user.id}) }}" target="_blank">
+                                                {% set s=0%}
+                                                {% for candidature in annonce.candidatures %}
+                                                {% if candidature.status != 'rejected' and candidature.status!= 'shortlisted' %}
+                                                {% set s = s + 1 %}
+                                                {% endif %}
+                                                {% endfor %}
+                                                {{ s }} Application(s)</a></td>
+                                        <td class="action">
+                                            <a href="{{ path('annonce_show',{'id':annonce.id}) }}" class="preview" title="Preview" target="_blank"><i data-feather="eye"></i></a>
+                                            <a href="{{ path('annonce_edit',{'id':annonce.id}) }}" class="edit" title="Edit" target="_blank"><i data-feather="edit"></i></a>
+                                            <a href="{{ path('annonce_delete',{'id':annonce.id}) }}" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="pagination-list text-center">
+                                    <nav class="navigation pagination">
+                                        <div class="nav-links">
+                                            {{  knp_pagination_render(annonces) }}
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-sidebar">
+                            <div class="company-info">
+                                <div class="thumb">
+                                    <img src="{{ asset('Uploads/User_Images/')~app.user.picture }}" class="img-fluid" alt="">
+                                </div>
+                                <div class="company-body">
+                                    <h5>{{ app.user.compname }}</h5>
+                                </div>
+                            </div>
+                            <div class="dashboard-menu">
+                                <ul>
+                                    <li><i class="fas fa-user"></i><a href="{{ path('edit_profile') }}">Edit Profile</a></li>
+                                    <li class="active"><i class="fas fa-briefcase"></i><a href="{{ path('mes_annonces') }}l">Manage Jobs</a></li>
+                                    <li><i class="fas fa-users"></i><a href="{{ path('candidature_index') }}">Manage Candidates</a></li>
+                                    <li><i class="fas fa-calendar-check"></i><a href="{{ path('managed_applications') }}">Managed Applications</a></li>
+                                    <li><i class="fas fa-plus-square"></i><a href="{{ path('annonce_new') }}">Post New Job</a></li>
+                                </ul>
+
+                                <ul class="delete">
+                                    <li><i class="fas fa-power-off"></i><a href="{{ path('app_logout') }}">Logout</a></li>
+                                    <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Delete Profile</a></li>
+                                </ul>
+                                <!-- Modal -->
+                                <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                    {{ render(controller('App\\Controller\\ProfileController::deactivate',{'id':app.user.id})) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

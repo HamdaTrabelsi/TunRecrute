@@ -1,0 +1,40 @@
+{% extends 'baseReg.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <img src="{{ asset("assets/img/briefcase.png") }}"  height="80px" alt="">
+
+    <h1>Inscription Employeur</h1>
+
+    {{ form_start(registrationForm) }}
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="ti-user"></i></span>
+        {{ form_widget(registrationForm.email,{'attr': {'placeholder' : 'Email'}}) }}
+        <span class="input-group-addon"><i class="ti-user"></i></span>
+        {{ form_widget(registrationForm.compname,{'attr': {'placeholder' : 'Nom Société'}}) }}
+    </div>
+</div>
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="ti-user"></i></span>
+            {{ form_widget(registrationForm.tel,{'attr': {'placeholder' : 'N° Tel'}}) }}
+            <span class="input-group-addon"><i class="ti-user"></i></span>
+            {{ form_widget(registrationForm.address,{'attr': {'placeholder' : 'Adresse'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+        <span class="input-group-addon"><i class="ti-user"></i></span>
+        {{ form_widget(registrationForm.plainPassword.first,{'attr': {'placeholder' : 'Mot de passe'}}) }}
+        <span class="input-group-addon"><i class="ti-user"></i></span>
+        {{ form_widget(registrationForm.plainPassword.second,{'attr': {'placeholder' : 'Répéter mot de passe'}}) }}
+    </div>
+</div>
+    <button type="submit" class="btn btn-primary btn-block">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}

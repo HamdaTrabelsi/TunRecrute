@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WorkExp{% endblock %}
+
+{% block body %}
+    <h1>WorkExp</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ work_exp.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ work_exp.Title }}</td>
+            </tr>
+            <tr>
+                <th>CompanyName</th>
+                <td>{{ work_exp.CompanyName }}</td>
+            </tr>
+            <tr>
+                <th>StartYear</th>
+                <td>{{ work_exp.startYear }}</td>
+            </tr>
+            <tr>
+                <th>EndYear</th>
+                <td>{{ work_exp.endYear }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ work_exp.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('work_exp_index') }}">back to list</a>
+
+    <a href="{{ path('work_exp_edit', {'id': work_exp.id}) }}">edit</a>
+
+    {{ include('work_exp/_delete_form.html.twig') }}
+{% endblock %}

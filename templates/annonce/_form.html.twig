@@ -1,0 +1,58 @@
+<div class="row">
+{{ form_start(form) }}
+    <div class="form-group col-xs-12 col-sm-6">
+    {{ form_widget(form.title,{'attr': {'placeholder' : 'Title'}}) }}
+    </div>
+    <div class="form-group col-xs-12 col-sm-6">
+    {{ form_widget(form.domaine) }}
+    </div>
+    <div class="form-group col-xs-12">
+    {{ form_widget(form.description,{'attr': {'placeholder' : 'Write a short description'}}) }}
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+    {{ form_widget(form.contrat) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
+    {{ form_widget(form.diplome) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-flask"></i></span>
+    {{ form_widget(form.experience,{'attr': {'placeholder' : 'Experience, e.g. 4'}}) }}
+            <span class="input-group-addon">Years</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-money"></i></span>
+    {{ form_widget(form.salaire,{'attr': {'placeholder' : 'Salary'}}) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+    {{ form_widget(form.adresseTravail,{'attr': {'placeholder' : 'Location, e.g. Ariana'}}) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+    {{ form_widget(form.heuresTravail,{'attr': {'placeholder' : 'Working hours, e.g. 40'}}) }}
+        </div>
+    </div>
+</div>
+<div class="button-group">
+    <div class="action-buttons">
+        <div class="upload-button">
+    <button class="btn btn-block btn-primary">{{ button_label|default('Add') }}</button>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+</div>

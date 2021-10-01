@@ -1,0 +1,69 @@
+{% extends 'Profile/baseProfile.html.twig' %}
+
+{% block body %}
+    <div class="alice-bg section-padding-bottom" >
+        <div class="container no-gliters" style="max-width: 990px;">
+            <div class="row no-gliters">
+                <div class="col">
+                    <div class="dashboard-container">
+                        <div class="dashboard-content-wrapper" style="width: 100%">
+                            <div class="manage-candidate-container">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th >Candidate</th>
+                                        <th >Status</th>
+                                        <th class="action">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if candidatures is empty%}
+                                    </tbody>
+                                    </table>
+                                    <div style="margin-left:330px;margin-top:70px;font-size: 1.4rem;font-family: 'Poppins', sans-serif; font-weight: 500; color: #6f7484;">
+                                    No Application(s) To Manage Yet
+                                    </div>
+                                    {% else %}
+                                    {% for candidature in candidatures %}
+                                    {% if candidature.status != 'rejected' or candidature.status != 'shortlisted' %}
+                                    <tr class="candidates-list">
+                                        <td class="title">
+                                            <div class="thumb">
+                                                <img src="{{  asset('Uploads/User_Images/' ~ candidature.user.picture) }}" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="body">
+                                                <h5><a href="{{ path('resume',{'id':candidature.user.id}) }}" target="_blank">{{ candidature.user.firstName }} {{ candidature.user.lastName }}</a></h5>
+                                            </div>
+                                        </td>
+                                        <td class="status">
+                                            {% if not candidature.status %}
+                                            N/A
+                                            {% elseif candidature.status == 'shortlisted' %}
+                                            <i data-feather="check-circle"></i>Shortlisted
+                                            {% endif %}
+                                        </td>
+                                        <td class="action">
+                                            <a href="{{ path('status',{'AnnonceId':candidature.annonce.id,'UserId':candidature.user.id,'s':'shortlisted'}) }}" class="download"><i data-feather="check-circle"></i></a>
+                                            <a href="{{ path('status',{'AnnonceId':candidature.annonce.id,'UserId':candidature.user.id,'s':'rejected'}) }}" class="remove"><i data-feather="x-circle"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                                <div class="pagination-list text-center">
+                                    <nav class="navigation pagination">
+                                        <div class="nav-links">
+                                            {{  knp_pagination_render(candidatures) }}
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

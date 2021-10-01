@@ -1,0 +1,75 @@
+{% extends 'profile/baseProfile.html.twig' %}
+{% block body %}
+<div class="alice-bg section-padding-bottom">
+    <div class="container no-gliters">
+        <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container">
+                    <div class="dashboard-content-wrapper">
+                        <div class="dashboard-applied">
+                            <h4 class="apply-title">{{ count }} Job(s) Applied</h4>
+                            <div class="dashboard-apply-area">
+                                {% for cand in candidatures %}
+                                {% if cand.isDeleted == false %}
+                                <div class="job-list">
+                                    <div class="thumb">
+                                        <a href="#">
+                                            <img src="{{ asset('Uploads/User_Images/') ~ cand.annonce.user.picture }}" class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="body">
+                                        <div class="content">
+                                            <h4><a href="{{ path('annonce_show',{'id':cand.annonce.id})}}">{{ cand.annonce.title }}</a></h4>
+                                            <div class="info">
+                                                <span class="company"><a href="#"><i data-feather="briefcase"></i>{{ cand.annonce.user.compname }}</a></span>
+                                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{ cand.annonce.adresseTravail }}</a></span>
+                                                <span class="job-type part-time"><a href="#"><i data-feather="file"></i>{{ cand.annonce.contrat }}</a></span>
+                                                {% if not cand.status %} <span class="status"><i data-feather="clock"></i> Application Pending{% endif %}</span>
+                                                {% if cand.status == 'shortlisted' %} <span class="status" style="color: #01d13d;"><i data-feather="check-circle" style="color: #01d13d;"></i> Shortlisted! Check your email!{% endif %}</span>
+                                                {% if cand.status == 'rejected' %} <span class="status" style="color: #ff3366;"><i data-feather="x-circle" style="color: #ff3366;"></i>Rejected :( {% endif %}</span>
+                                            </div>
+                                        </div>
+                                        <div class="more">
+                                            <form>
+                                            <a href="{{ path('candidature_delete',{'UserId':cand.user.id,'AnnonceId':cand.annonce.id}) }}" class="bookmark-remove" onclick="this.form.submit()"><i class="fas fa-times"></i></a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-sidebar">
+                        <div class="user-info">
+                            <div class="thumb">
+                                <img src="{{ asset('Uploads/User_Images/' ~ app.user.picture) }}" class="img-fluid" alt="">
+                            </div>
+                            <div class="user-body">
+                                <h5>{{ app.user.firstname ~ ' ' ~ app.user.lastname }}</h5>
+                            </div>
+                        </div>
+                        <div class="dashboard-menu">
+                            <ul>
+                                <li><i class="fas fa-user"></i><a href="{{  path('edit_profile') }}">Edit Profile</a></li>
+                                <li><i class="fas fa-file-alt"></i><a href="{{  path('resume') }}">Resume</a></li>
+                                <li><i class="fas fa-edit"></i><a href="{{  path('resume_edit') }}">Edit Resume</a></li>
+                                <li class="active"><i class="fas fa-check-square"></i><a href="{{  path('applied_jobs') }}">Applied Job</a></li>
+                            </ul>
+                            <ul class="delete">
+                                <li><i class="fas fa-power-off"></i><a href="{{ path('app_logout') }}">Logout</a></li>
+                                <li><i class="fas fa-trash-alt"></i><a href="#" data-toggle="modal" data-target="#modal-delete">Deactivate Profile</a></li>
+                            </ul>
+                            <!-- Modal -->
+                            <div class="modal fade modal-delete" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                                {{ render(controller('App\\Controller\\ProfileController::deactivate',{'id':app.user.id})) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

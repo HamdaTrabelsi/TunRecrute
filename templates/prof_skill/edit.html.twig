@@ -1,0 +1,72 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="title">
+                <h4><i data-feather="feather"></i>Professional Skill</h4>
+            </div>
+            <div class="content">
+                {{form_start(form,{'attr':{'id':'editSkillForm'~prof_skill.id},'action':path('prof_skill_edit',{'id':prof_skill.id})})}}
+                <div class="input-block-wrap">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" style="margin-right: 0; padding-top: 10px; padding-bottom: 0; color: #6f7484;font-size: 1.4rem; font-family: 'Poppins', sans-serif; font-weight: 600">
+                            Information About Skill
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Skill Name</div>
+                                </div>
+                                {{ form_widget(form.Name,{'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form.Name) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-sm-3 col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Percentage</div>
+                                </div>
+                                {{ form_widget(form.Percent,{'attr':{'class':'form-control'}}) }}
+                                {{ form_errors(form.Percent) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-sm-3 col-sm-9">
+                            <div class="buttons">
+                                <button class="primary-bg">Save Update</button>
+                                <button class="" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on("submit","#editSkillForm".concat("{{ prof_skill.id }}"),function(event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        $form = $("#editSkillForm".concat("{{ prof_skill.id }}"));
+        $.ajax({
+            url: $form.attr("action"),
+            type: "POST",
+            data: $form.serialize(),
+            success: function (data) {
+                if(data === "success"){
+                    window.location.reload();
+                }else{
+                    $("#modal-pro-skill-edit-{{ prof_skill.id }}").html(data);
+                    feather.replace();
+                }
+            },
+            error: function (){
+                console.log("error");
+            }
+        });
+        return false;
+    });
+</script>
